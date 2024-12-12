@@ -12,7 +12,7 @@ const isPalindrom = (string = '') => {
     reverseString += string[string.length - 1 - i];
   }
   return string === reverseString;
-}
+};
 
 // Функция для извлечения числа из строки
 
@@ -20,9 +20,9 @@ const extractNumber = (string) => {
   string = string.toString();
   let number = '';
   for (let i = 0; i < string.length; i++) {
-    if (!isNaN(parseInt(string[i]))) {
+    if (!isNaN(parseInt(string[i], 10))) {
       number += string[i];
     }
   }
-  return parseInt(number);
-}
+  return parseInt(number, 10);
+};
