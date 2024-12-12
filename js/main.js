@@ -48,13 +48,35 @@ const MESSAGES = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
 ];
 
-const MAX_PHOTOS = 25;
-const MAX_AVATARS = 6;
-const MAX_COMMENT_ID = 1000;
-const MAX_COMMENTS_FOR_PHOTO = 30;
-const MAX_MESSAGES_FOR_COMMENT = 2;
-const MIN_LIKES = 15;
-const MAX_LIKES = 200;
+const PhotosQuantity = {
+  MIN: 1,
+  MAX: 25,
+};
+
+const AvatarsQuantity = {
+  MIN: 1,
+  MAX: 6,
+};
+
+const CommentsIdQuantity = {
+  MIN: 1,
+  MAX: 1000,
+};
+
+const CommentsForPhotoQuantity = {
+  MIN: 0,
+  MAX: 30,
+};
+
+const MessagesForCommentQuantity = {
+  MIN: 1,
+  MAX: 2,
+};
+
+const LikesQuantity = {
+  MIN: 15,
+  MAX: 200,
+};
 
 const getRandomNumber = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 const getRandomArrayElement = (array) => array[getRandomNumber(0, array.length - 1)];
@@ -65,47 +87,41 @@ const createRandomUniqueNumbers = (min, max) => {
     let randomNumber = getRandomNumber(min, max);
     if (ids.length >= (max - min + 1)) {
       return null;
-    };
+    }
     while (ids.includes(randomNumber)) {
       randomNumber = getRandomNumber(min, max);
-    };
+    }
     ids.push(randomNumber);
     return randomNumber;
   };
 };
 
-const generateCommentIds = createRandomUniqueNumbers(1, MAX_COMMENT_ID);
-const generagePtohoIds = createRandomUniqueNumbers(1, MAX_PHOTOS);
-const generatePhotoUrls = createRandomUniqueNumbers(1, MAX_PHOTOS);
+const generateCommentIds = createRandomUniqueNumbers(CommentsIdQuantity.MIN, CommentsIdQuantity.MAX);
+const generagePtohoIds = createRandomUniqueNumbers(PhotosQuantity.MIN, PhotosQuantity.MAX);
+const generatePhotoUrls = createRandomUniqueNumbers(PhotosQuantity.MIN, PhotosQuantity.MAX);
 
 const getCommentMessages = (messages) => {
-  array = [];
-  for (let i = 1; i <= getRandomNumber(1, MAX_MESSAGES_FOR_COMMENT); i++) {
+  const array = [];
+  for (let i = 1; i <= getRandomNumber(MessagesForCommentQuantity.MIN, MessagesForCommentQuantity.MAX); i++) {
     array.push(getRandomArrayElement(messages));
-  };
+  }
   return array;
 };
 
-const createComment = () => {
-  return {
-      id: generateCommentIds(),
-      avatar: 'img/avatar-' + getRandomNumber(1, MAX_AVATARS) + '.svg',
-      message: getCommentMessages(MESSAGES).join(' '),
-      name: getRandomArrayElement(NAMES),
-  };
-};
+const createComment = () => ({
+  id: generateCommentIds(),
+  avatar: `img/avatar-${getRandomNumber(AvatarsQuantity.MIN, AvatarsQuantity.MAX)}.svg`,
+  message: getCommentMessages(MESSAGES).join(' '),
+  name: getRandomArrayElement(NAMES),
+});
 
-const createPhoto = () => {
-  return {
-      id: generagePtohoIds(),
-      url: 'photos/' + generatePhotoUrls() + '.jpg',
-      description: DESCRIPTIONS[getRandomNumber(0, DESCRIPTIONS.length - 1)],
-      likes: getRandomNumber(MIN_LIKES, MAX_LIKES),
-      comments: Array.from({length: getRandomNumber(0, MAX_COMMENTS_FOR_PHOTO)}, createComment),
-  };
-};
 
-const photos = Array.from({length: MAX_PHOTOS}, createPhoto);
+const createPhoto = () => ({
+  id: generagePtohoIds(),
+  url: `photos/${generatePhotoUrls()}.jpg`,
+  description: DESCRIPTIONS[getRandomNumber(0, DESCRIPTIONS.length - 1)],
+  likes: getRandomNumber(LikesQuantity.MIN, LikesQuantity.MAX),
+  comments: Array.from({length: getRandomNumber(CommentsForPhotoQuantity.MIN, CommentsForPhotoQuantity.MAX)}, createComment),
+});
 
-console.log(photos);
-
+const photos = Array.from({length: PhotosQuantity.MAX}, createPhoto);
