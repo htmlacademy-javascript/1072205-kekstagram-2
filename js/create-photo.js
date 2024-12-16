@@ -1,4 +1,4 @@
-import { getPhotoData } from './data.js';
+import { DESCRIPTIONS, NAMES, MESSAGES } from './data.js';
 import { getRandomUniqueNumbers, getRandomArrayElement, getRandomNumber } from './utils.js';
 
 const PhotosQuantity = {
@@ -48,14 +48,14 @@ const createPhoto = () => {
   const createComment = () => ({
     id: generateCommentIds(),
     avatar: `img/avatar-${getRandomNumber(AvatarsQuantity.MIN, AvatarsQuantity.MAX)}.svg`,
-    message: getCommentMessages(getPhotoData().MESSAGES).join(' '),
-    name: getRandomArrayElement(getPhotoData().NAMES),
+    message: getCommentMessages(MESSAGES).join(' '),
+    name: getRandomArrayElement(NAMES),
   });
 
   return {
     id: generagePtohoIds(),
     url: `photos/${generatePhotoUrls()}.jpg`,
-    description: getPhotoData().DESCRIPTIONS[getRandomNumber(0, getPhotoData().DESCRIPTIONS.length - 1)],
+    description: DESCRIPTIONS[getRandomNumber(0, DESCRIPTIONS.length - 1)],
     likes: getRandomNumber(LikesQuantity.MIN, LikesQuantity.MAX),
     comments: Array.from({length: getRandomNumber(CommentsForPhotoQuantity.MIN, CommentsForPhotoQuantity.MAX)}, createComment),
   };

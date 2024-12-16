@@ -26,22 +26,19 @@ const extractNumber = (string) => {
   return parseInt(number, 10);
 };
 
-// Функция, опеределяющая, выходит вреча за рамки рабочего времени или нет
+// Функция, определяющая, выходит встреча за рамки рабочего времени или нет
 
-const isDelayAtWork = (starWorkDayTime, endWorkDayTime, startMeetingTime, meetingTimeInMinute) => {
-  const toNumber = (string) => {
-    const number = string.split(':');
-    number[1] /= 60;
-    const result = Number(number[0]) + number[1];
-    return result;
+const isDelayAtWork = (starWorkDayTime, endWorkDayTime, startMeetingTime, meetingTime) => {
+  const toNumber = (time) => {
+    const [hours, minutes] = time.split(':');
+    return hours * 60 + Number(minutes);
   };
 
   const startDay = toNumber(starWorkDayTime);
   const endDay = toNumber(endWorkDayTime);
   const startMeeting = toNumber(startMeetingTime);
-  const meetingTimeInHour = meetingTimeInMinute / 60;
 
-  if (startDay > startMeeting || endDay <= startMeeting || meetingTimeInHour > (endDay - startMeeting)) {
+  if (startDay > startMeeting || endDay <= startMeeting || meetingTime > (endDay - startMeeting)) {
     return false;
   }
 
