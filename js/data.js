@@ -50,6 +50,6 @@ const getPhotoData = () => {
   ];
 
   return { DESCRIPTIONS, NAMES, MESSAGES };
-}
+};
 
 export { getPhotoData };
