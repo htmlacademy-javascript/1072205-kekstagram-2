@@ -2,7 +2,6 @@
 
 const isStringLonger = (string = '', maxLength = 1) => string.length <= maxLength;
 
-
 // Функция для проверки, является ли строка палиндромом
 
 const isPalindrom = (string = '') => {
@@ -25,4 +24,23 @@ const extractNumber = (string) => {
     }
   }
   return parseInt(number, 10);
+};
+
+// Функция, определяющая, выходит встреча за рамки рабочего времени или нет
+
+const isDelayAtWork = (starWorkDayTime, endWorkDayTime, startMeetingTime, meetingTime) => {
+  const toNumber = (time) => {
+    const [hours, minutes] = time.split(':');
+    return hours * 60 + Number(minutes);
+  };
+
+  const startDay = toNumber(starWorkDayTime);
+  const endDay = toNumber(endWorkDayTime);
+  const startMeeting = toNumber(startMeetingTime);
+
+  if (startDay > startMeeting || endDay <= startMeeting || meetingTime > (endDay - startMeeting)) {
+    return false;
+  }
+
+  return true;
 };
