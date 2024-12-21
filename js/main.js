@@ -1,3 +1,6 @@
-import { createPhoto, PhotosQuantity } from './create-photo.js';
+import { createPhotos } from './create-photos.js';
+import { createThumbnails } from './create-thumbnails.js';
 
-const photos = Array.from({length: PhotosQuantity.MAX}, createPhoto);
+const photos = createPhotos();
+
+createThumbnails(photos);
