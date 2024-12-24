@@ -31,7 +31,7 @@ const MessagesForCommentQuantity = {
   MAX: 2,
 };
 
-const createPhoto = () => {
+const createPhotos = () => {
 
   const generateCommentIds = getRandomUniqueNumbers(CommentsIdQuantity.MIN, CommentsIdQuantity.MAX);
   const generagePtohoIds = getRandomUniqueNumbers(PhotosQuantity.MIN, PhotosQuantity.MAX);
@@ -52,13 +52,15 @@ const createPhoto = () => {
     name: getRandomArrayElement(NAMES),
   });
 
-  return {
+  const createPhoto = () => ({
     id: generagePtohoIds(),
     url: `photos/${generatePhotoUrls()}.jpg`,
     description: DESCRIPTIONS[getRandomNumber(0, DESCRIPTIONS.length - 1)],
     likes: getRandomNumber(LikesQuantity.MIN, LikesQuantity.MAX),
     comments: Array.from({length: getRandomNumber(CommentsForPhotoQuantity.MIN, CommentsForPhotoQuantity.MAX)}, createComment),
-  };
+  });
+
+  return Array.from({length: PhotosQuantity.MAX}, createPhoto);
 };
 
-export { createPhoto, PhotosQuantity };
+export { createPhotos };
