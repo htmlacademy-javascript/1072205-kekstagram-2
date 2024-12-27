@@ -1,21 +1,23 @@
-const thumbnailsContainer = document.querySelector('.pictures');
-const thumbnailsTemplate = document.querySelector('#picture').content;
+const containerElement = document.querySelector('.pictures');
+const templateElement = document.querySelector('#picture').content;
 
 const createThumbnails = (photos) => {
   const thumbnailsListFragment = document.createDocumentFragment();
 
-  photos.forEach((photo) => {
-    const photoElement = thumbnailsTemplate.cloneNode(true);
+  photos.forEach(({id, url, description, likes, comments}) => {
+    const photoElement = templateElement.cloneNode(true);
+    const photoImageElement = photoElement.querySelector('.picture__img');
 
-    photoElement.querySelector('.picture__img').src = photo.url;
-    photoElement.querySelector('.picture__img').alt = photo.description;
-    photoElement.querySelector('.picture__likes').textContent = photo.likes;
-    photoElement.querySelector('.picture__comments').textContent = (photo.comments).length;
+    photoImageElement.dataset.photoId = id;
+    photoImageElement.src = url;
+    photoImageElement.alt = description;
+    photoElement.querySelector('.picture__likes').textContent = likes;
+    photoElement.querySelector('.picture__comments').textContent = comments.length;
 
     thumbnailsListFragment.appendChild(photoElement);
   });
 
-  thumbnailsContainer.appendChild(thumbnailsListFragment);
+  containerElement.appendChild(thumbnailsListFragment);
 };
 
 export { createThumbnails };
