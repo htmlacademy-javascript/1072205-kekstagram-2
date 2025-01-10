@@ -1,7 +1,7 @@
 const getRandomNumber = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 const getRandomArrayElement = (array) => array[getRandomNumber(0, array.length - 1)];
 
-const getRandomUniqueNumbers = (min, max) => {
+const getRandomUniqueNumber = (min, max) => {
   const ids = [];
   return () => {
     let randomNumber = getRandomNumber(min, max);
@@ -16,4 +16,4 @@ const getRandomUniqueNumbers = (min, max) => {
   };
 };
 
-export { getRandomNumber, getRandomArrayElement, getRandomUniqueNumbers };
+export { getRandomNumber, getRandomArrayElement, getRandomUniqueNumber };

@@ -1,5 +1,5 @@
 import { DESCRIPTIONS, NAMES, MESSAGES } from './data.js';
-import { getRandomUniqueNumbers, getRandomArrayElement, getRandomNumber } from './utils.js';
+import { getRandomUniqueNumber, getRandomArrayElement, getRandomNumber } from './utils.js';
 
 const PhotosQuantity = {
   MIN: 1,
@@ -33,9 +33,9 @@ const MessagesForCommentQuantity = {
 
 const createPhotos = () => {
 
-  const generateCommentIds = getRandomUniqueNumbers(CommentsIdQuantity.MIN, CommentsIdQuantity.MAX);
-  const generagePtohoIds = getRandomUniqueNumbers(PhotosQuantity.MIN, PhotosQuantity.MAX);
-  const generatePhotoUrls = getRandomUniqueNumbers(PhotosQuantity.MIN, PhotosQuantity.MAX);
+  const generateCommentIds = getRandomUniqueNumber(CommentsIdQuantity.MIN, CommentsIdQuantity.MAX);
+  const generagePtohoIds = getRandomUniqueNumber(PhotosQuantity.MIN, PhotosQuantity.MAX);
+  const generatePhotoUrls = getRandomUniqueNumber(PhotosQuantity.MIN, PhotosQuantity.MAX);
 
   const getCommentMessages = (messages) => {
     const array = [];

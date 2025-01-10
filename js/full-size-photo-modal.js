@@ -1,25 +1,23 @@
 import { createFullSizePhoto } from './create-full-size-photo.js';
+import { clearComments } from './show-сomments.js';
 
 const modalElement = document.querySelector('.big-picture');
 const closeElement = modalElement.querySelector('.big-picture__cancel');
 const thumbnailsContainerElement = document.querySelector('.pictures');
-const commentCountElement = modalElement.querySelector('.social__comment-count');
-const commentsLoaderElement = modalElement.querySelector('.comments-loader');
-const bodyElement = document.querySelector('body');
 
-const closeModal = () => {
-  closeElement.addEventListener('click', () => {
-    modalElement.classList.add('hidden');
-    bodyElement.classList.remove('modal-open');
-  });
+function onEscapeDown(evt) {
+  if (evt.key === 'Escape') {
+    evt.preventDefault();
+    closeModal();
+  }
+}
 
-  document.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Escape') {
-      modalElement.classList.add('hidden');
-      bodyElement.classList.remove('modal-open');
-    }
-  });
-};
+function closeModal() {
+  modalElement.classList.add('hidden');
+  document.body.classList.remove('modal-open');
+  document.removeEventListener('keydown', onEscapeDown);
+  clearComments();
+}
 
 const openModal = (photos) => {
   thumbnailsContainerElement.addEventListener('click', (evt) => {
@@ -28,14 +26,12 @@ const openModal = (photos) => {
 
       evt.preventDefault();
       modalElement.classList.remove('hidden');
-      commentCountElement.classList.add('hidden');
-      commentsLoaderElement.classList.add('hidden');
-      bodyElement.classList.add('modal-open');
+      document.body.classList.add('modal-open');
       createFullSizePhoto(foundPhotoElement);
     }
 
-    closeModal();
-
+    document.addEventListener('keydown', onEscapeDown);
+    closeElement.addEventListener('click', closeModal);
   });
 };
 
