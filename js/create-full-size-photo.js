@@ -5,7 +5,7 @@ const fullSizePhotoImageElement = fullSizePhotoElement.querySelector('img');
 const likesCountElement = fullSizePhotoElement.querySelector('.likes-count');
 const captionElement = fullSizePhotoElement.querySelector('.social__caption');
 const commentsQuantityElement = fullSizePhotoElement.querySelector('.social__comment-total-count');
-const commentLoaderElement =fullSizePhotoElement.querySelector('.social__comments-loader');
+const commentLoaderElement = fullSizePhotoElement.querySelector('.social__comments-loader');
 const commentsListElement = fullSizePhotoElement.querySelector('.social__comments');
 
 const createFullSizePhoto = ({url, description, likes, comments}) => {
