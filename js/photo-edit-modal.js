@@ -8,19 +8,19 @@ function onEscapeDown(evt) {
     evt.preventDefault();
     closeModal();
   }
-};
+}
 
 function closeModal () {
   modalElement.classList.add('hidden');
   document.body.classList.remove('modal-open');
   photoUploadInputElement.value = '';
-};
+}
 
 const openPhotoEditModal = () => {
   photoUploadInputElement.addEventListener('change', () => {
     modalElement.classList.remove('hidden');
     document.body.classList.add('modal-open');
-  })
+  });
 
   document.addEventListener('keydown', onEscapeDown);
   closeElement.addEventListener('click', closeModal);
