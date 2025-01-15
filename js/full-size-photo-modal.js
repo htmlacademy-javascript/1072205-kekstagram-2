@@ -19,7 +19,7 @@ function closeModal() {
   clearComments();
 }
 
-const openModal = (photos) => {
+const openFullSizePhotoModal = (photos) => {
   thumbnailsContainerElement.addEventListener('click', (evt) => {
     if (evt.target.matches('.picture__img')) {
       const foundPhotoElement = photos.find((photo) => photo.id === Number(evt.target.dataset.photoId));
@@ -35,4 +35,4 @@ const openModal = (photos) => {
   });
 };
 
-export { openModal };
+export { openFullSizePhotoModal };
