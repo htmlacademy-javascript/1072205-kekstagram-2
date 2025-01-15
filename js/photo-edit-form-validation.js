@@ -21,7 +21,6 @@ const getHashtagErrorMessage = (value) => {
   return '';
 };
 
-
 const pristine = new Pristine(formElement, {
   classTo: 'img-upload__field-wrapper',
   errorTextParent: 'img-upload__field-wrapper',
@@ -53,13 +52,8 @@ const validateHashtags = (value) => { // хэштеги необязательн
   return true;
 };
 
-// === Валидация комментария ===
-const validateDescription = (value) => {
-  if (value.length > 140) {
-    return false;
-  }
-  return true;
-};
+// Валидация комментария
+const validateDescription = (value) => value.length <= 140;
 
 // если фокус находится в поле ввода хэштега или комментария, нажатие на Esc не должно приводить к закрытию формы редактирования изображения
 const preventEscClose = (evt) => {

@@ -15,8 +15,8 @@ const renderComment = ({ avatar, name, message }) => {
   const commentAuthorElement = newCommentElement.querySelector('.social__picture');
   const commentTextElement = newCommentElement.querySelector('.social__text');
 
-  commentAuthorElement.src = avatar;
-  commentAuthorElement.alt = name;
+  commentAuthorElement.setAttribute('src', avatar);
+  commentAuthorElement.setAttribute('alt', name);
   commentTextElement.textContent = message;
 
   return newCommentElement;
