@@ -1,3 +1,6 @@
+import { validatePhotoEditForm } from './photo-edit-form-validation.js';
+import { editPhotoScale, editPhotoEffect } from './photo-settings.js';
+
 const formElement = document.querySelector('.img-upload__form');
 const photoUploadInputElement = formElement.querySelector('.img-upload__input');
 const modalElement = formElement.querySelector('.img-upload__overlay');
@@ -24,6 +27,9 @@ const openPhotoEditModal = () => {
 
   document.addEventListener('keydown', onEscapeDown);
   closeElement.addEventListener('click', closeModal);
+  validatePhotoEditForm();
+  editPhotoScale();
+  editPhotoEffect();
 };
 
 export { openPhotoEditModal };

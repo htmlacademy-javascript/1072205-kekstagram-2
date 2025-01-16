@@ -9,7 +9,7 @@ const commentLoaderElement = fullSizePhotoElement.querySelector('.social__commen
 const commentsListElement = fullSizePhotoElement.querySelector('.social__comments');
 
 const createFullSizePhoto = ({url, description, likes, comments}) => {
-  fullSizePhotoImageElement.src = url;
+  fullSizePhotoImageElement.setAttribute('src', url);
   likesCountElement.textContent = likes;
   captionElement.textContent = description;
   commentsQuantityElement.textContent = comments.length;
