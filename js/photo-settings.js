@@ -15,7 +15,7 @@ const editPhotoScale = () => {
       scaleValue -= scaleStep;
     }
     scaleControlValueElement.setAttribute('value', `${scaleValue}%`);
-    image.setAttribute('style', `transform: scale(0.${scaleValue})`);
+    image.style.setProperty('transform', `scale(0.${scaleValue})`);
   });
 
   scaleControlBiggerButtonElement.addEventListener('click', () => {
@@ -69,7 +69,13 @@ const editPhotoEffect = () => {
 
     effect.addEventListener('change', () => {
       effect.setAttribute('checked', '');
-      image.removeAttribute('class');
+
+      image.classList.forEach(className => {
+        if (className.startsWith('effects__preview--')) {
+          image.classList.remove(className);
+        }
+      });
+
       image.classList.add(`effects__preview--${effect.id.substring(7)}`);
       sliderElement.noUiSlider.set(100);
       effectLevelElement.setAttribute('value', 100);
