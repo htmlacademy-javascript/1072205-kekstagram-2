@@ -17,12 +17,14 @@ function closeModal () {
   modalElement.classList.add('hidden');
   document.body.classList.remove('modal-open');
   photoUploadInputElement.value = '';
+  //document.querySelector('.success').classList.add('hidden');
 }
 
 const openPhotoEditModal = () => {
   photoUploadInputElement.addEventListener('change', () => {
     modalElement.classList.remove('hidden');
     document.body.classList.add('modal-open');
+    document.querySelector('.img-upload__submit').disabled = false;
   });
 
   document.addEventListener('keydown', onEscapeDown);
@@ -32,4 +34,4 @@ const openPhotoEditModal = () => {
   editPhotoEffect();
 };
 
-export { openPhotoEditModal };
+export { openPhotoEditModal, closeModal };
