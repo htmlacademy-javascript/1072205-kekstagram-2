@@ -70,7 +70,7 @@ const editPhotoEffect = () => {
     effect.addEventListener('change', () => {
       effect.setAttribute('checked', '');
 
-      image.classList.forEach(className => {
+      image.classList.forEach((className) => {
         if (className.startsWith('effects__preview--')) {
           image.classList.remove(className);
         }

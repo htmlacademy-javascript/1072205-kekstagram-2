@@ -5,6 +5,8 @@ const formElement = document.querySelector('.img-upload__form');
 const photoUploadInputElement = formElement.querySelector('.img-upload__input');
 const modalElement = formElement.querySelector('.img-upload__overlay');
 const closeElement = formElement.querySelector('.img-upload__cancel');
+const hashtagInputElement = formElement.querySelector('.text__hashtags');
+const descriptionInputElement = formElement.querySelector('.text__description');
 
 function onEscapeDown(evt) {
   if (evt.key === 'Escape') {
@@ -17,14 +19,14 @@ function closeModal () {
   modalElement.classList.add('hidden');
   document.body.classList.remove('modal-open');
   photoUploadInputElement.value = '';
-  //document.querySelector('.success').classList.add('hidden');
+  hashtagInputElement.value = '';
+  descriptionInputElement.value = '';
 }
 
 const openPhotoEditModal = () => {
   photoUploadInputElement.addEventListener('change', () => {
     modalElement.classList.remove('hidden');
     document.body.classList.add('modal-open');
-    document.querySelector('.img-upload__submit').disabled = false;
   });
 
   document.addEventListener('keydown', onEscapeDown);
@@ -34,4 +36,4 @@ const openPhotoEditModal = () => {
   editPhotoEffect();
 };
 
-export { openPhotoEditModal, closeModal };
+export { openPhotoEditModal, closeModal, onEscapeDown };

@@ -1,5 +1,3 @@
-import { sendData } from "./api.js";
-
 const formElement = document.querySelector('.img-upload__form');
 const hashtagInputElement = formElement.querySelector('.text__hashtags');
 const descriptionInputElement = formElement.querySelector('.text__description');
@@ -70,16 +68,6 @@ const validatePhotoEditForm = () => {
 
   hashtagInputElement.addEventListener('keydown', preventEscClose);
   descriptionInputElement.addEventListener('keydown', preventEscClose);
-
-  formElement.addEventListener('submit', (evt) => {
-    if (pristine.validate()) {
-      const formData = new FormData(evt.target);
-      sendData(formData);
-    }
-    if (!pristine.validate()) {
-      evt.preventDefault();
-    }
-  });
 };
 
-export { validatePhotoEditForm };
+export { validatePhotoEditForm, pristine };
