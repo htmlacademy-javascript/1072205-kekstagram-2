@@ -100,10 +100,7 @@ const sendData = () => {
 
           document.addEventListener('click', () => {
             if (!evt.target.closest('.error__inner')) {
-              const errorMessage = document.querySelector('.error');
-              if (errorMessage) {
-                errorMessage.remove();
-              }
+              document.querySelector('.error').remove();
             }
           });
         })
