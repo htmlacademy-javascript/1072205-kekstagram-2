@@ -8,6 +8,12 @@ const closeElement = formElement.querySelector('.img-upload__cancel');
 const hashtagInputElement = formElement.querySelector('.text__hashtags');
 const descriptionInputElement = formElement.querySelector('.text__description');
 
+const clearForm = () => {
+  photoUploadInputElement.value = '';
+  hashtagInputElement.value = '';
+  descriptionInputElement.value = '';
+};
+
 function onEscapeDown(evt) {
   if (evt.key === 'Escape') {
     evt.preventDefault();
@@ -15,12 +21,11 @@ function onEscapeDown(evt) {
   }
 }
 
-function closeModal () {
+function closeModal() {
   modalElement.classList.add('hidden');
   document.body.classList.remove('modal-open');
-  photoUploadInputElement.value = '';
-  hashtagInputElement.value = '';
-  descriptionInputElement.value = '';
+  document.removeEventListener('keydown', onEscapeDown);
+  clearForm();
 }
 
 const openPhotoEditModal = () => {

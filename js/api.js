@@ -1,22 +1,13 @@
-import { createThumbnails } from './create-thumbnails.js';
-import { openFullSizePhotoModal } from './full-size-photo-modal.js';
-import { closeModal } from './photo-edit-modal.js';
+import { closeModal, onEscapeDown } from './photo-edit-modal.js';
 import { pristine } from './photo-edit-form-validation.js';
-import { onEscapeDown } from './photo-edit-modal.js';
+import { cloneElement } from './utils.js';
 
 const getData = () => {
-  fetch('https://31.javascript.htmlacademy.pro/kekstagram/data')
+  return fetch('https://31.javascript.htmlacademy.pro/kekstagram/data')
     .then((response) => response.json())
-    .then((photos) => {
-      createThumbnails(photos);
-      openFullSizePhotoModal(photos);
-    })
     .catch(() => {
       const errorTemplateElement = document.querySelector('#data-error').content;
-      const fragmentElement = document.createDocumentFragment();
-      const errorElement = errorTemplateElement.cloneNode(true);
-      fragmentElement.appendChild(errorElement);
-      document.body.appendChild(fragmentElement);
+      cloneElement(errorTemplateElement);
       setTimeout(() => {
         document.querySelector('.data-error').classList.add('hidden');
       }, 5000);
@@ -26,7 +17,6 @@ const getData = () => {
 const sendData = () => {
   const formElement = document.querySelector('.img-upload__form');
   const submitButtonElement = formElement.querySelector('.img-upload__submit');
-  const successMessageTemplateElement = document.querySelector('#success').content;
 
   formElement.addEventListener('submit', (evt) => {
     evt.preventDefault();
@@ -41,7 +31,7 @@ const sendData = () => {
           method: 'POST',
           body: formData,
         }
-      )
+        )
         .then((response) => {
           if (!response.ok) {
             throw new Error('Ошибка отправки данных'); // обработка ответа с ошибкой
@@ -50,14 +40,11 @@ const sendData = () => {
           return response.json();
         })
         .then(() => { // показ сообщения об успешной загрузке фотографии
-          const fragmentElement = document.createDocumentFragment();
-          const successMessageElement = successMessageTemplateElement.cloneNode(true);
-          const successMessageCloseButtonElement = successMessageElement.querySelector('.success__button');
-
-          fragmentElement.appendChild(successMessageElement);
-          document.body.appendChild(fragmentElement);
+          const successMessageTemplateElement = document.querySelector('#success').content;
+          cloneElement(successMessageTemplateElement);
 
           const successMessage = document.querySelector('.success');
+          const successMessageCloseButtonElement = successMessage.querySelector('.success__button');
 
           successMessageCloseButtonElement.addEventListener('click', () => {
             successMessage.remove();
@@ -78,29 +65,27 @@ const sendData = () => {
         })
         .catch(() => { // показ сообщения об ошибке
           const errorMessageTemplateElement = document.querySelector('#error').content;
-          const fragmentElement = document.createDocumentFragment();
-          const errorMessageElement = errorMessageTemplateElement.cloneNode(true);
-          const errorMessageCloseButtonElement = errorMessageElement.querySelector('.error__button');
+          cloneElement(errorMessageTemplateElement);
 
-          fragmentElement.appendChild(errorMessageElement);
-          document.body.appendChild(fragmentElement);
+          const errorMessage = document.querySelector('.error');
+          const errorMessageCloseButtonElement = errorMessage.querySelector('.error__button');
+
           document.removeEventListener('keydown', onEscapeDown);
-
           errorMessageCloseButtonElement.addEventListener('click', () => {
-            document.querySelector('.error').remove();
+            errorMessage.remove();
           });
 
           document.addEventListener('keydown', (keyPressed) => {
             if (keyPressed.key === 'Escape') {
               keyPressed.preventDefault();
-              document.querySelector('.error').classList.add('hidden');
+              errorMessage.remove();
               document.addEventListener('keydown', onEscapeDown);
             }
           });
 
           document.addEventListener('click', () => {
             if (!evt.target.closest('.error__inner')) {
-              document.querySelector('.error').remove();
+              errorMessage.remove();
             }
           });
         })

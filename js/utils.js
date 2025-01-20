@@ -16,4 +16,11 @@ const getRandomUniqueNumber = (min, max) => {
   };
 };
 
-export { getRandomNumber, getRandomArrayElement, getRandomUniqueNumber };
+const cloneElement = (template) => {
+  const fragmentElement = document.createDocumentFragment();
+  const newElement = template.cloneNode(true);
+  fragmentElement.appendChild(newElement);
+  document.body.appendChild(fragmentElement);
+}
+
+export { getRandomNumber, getRandomArrayElement, getRandomUniqueNumber, cloneElement  };

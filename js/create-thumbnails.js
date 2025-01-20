@@ -3,7 +3,6 @@ const templateElement = document.querySelector('#picture').content;
 
 const createThumbnails = (photos) => {
   const thumbnailsListFragment = document.createDocumentFragment();
-
   photos.forEach(({id, url, description, likes, comments}) => {
     const photoElement = templateElement.cloneNode(true);
     const photoImageElement = photoElement.querySelector('.picture__img');

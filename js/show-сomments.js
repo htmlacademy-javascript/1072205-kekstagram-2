@@ -22,23 +22,6 @@ const renderComment = ({ avatar, name, message }) => {
   return newCommentElement;
 };
 
-// Функция для загрузки дополнительных комментариев
-const uploadComments = () => {
-  const remainingComments = comments.length - showedComments;
-  const commentsToLoad = Math.min(loadQuantity, remainingComments);
-
-  for (let i = showedComments; i < showedComments + commentsToLoad; i++) {
-    commentsListElement.appendChild(renderComment(comments[i]));
-  }
-
-  showedComments += commentsToLoad;
-  commentsShownElement.textContent = showedComments;
-
-  if (showedComments >= comments.length) {
-    commentLoaderElement.classList.add('hidden');
-  }
-};
-
 // Функция для отображения начальных комментариев
 const showComments = (newComments) => {
   comments = newComments;
@@ -54,6 +37,23 @@ const showComments = (newComments) => {
   if (showedComments < comments.length) {
     commentLoaderElement.classList.remove('hidden');
     commentLoaderElement.addEventListener('click', uploadComments);
+  }
+};
+
+// Функция для загрузки дополнительных комментариев
+const uploadComments = () => {
+  const remainingComments = comments.length - showedComments;
+  const commentsToLoad = Math.min(loadQuantity, remainingComments);
+
+  for (let i = showedComments; i < showedComments + commentsToLoad; i++) {
+    commentsListElement.appendChild(renderComment(comments[i]));
+  }
+
+  showedComments += commentsToLoad;
+  commentsShownElement.textContent = showedComments;
+
+  if (showedComments >= comments.length) {
+    commentLoaderElement.classList.add('hidden');
   }
 };
 
