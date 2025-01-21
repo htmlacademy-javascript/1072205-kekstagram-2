@@ -57,7 +57,7 @@ const closeUserMessage = (button, message, type) => {
 
 const showMessage = (templateSelector, messageClass, buttonSelector) => {
   const templateElement = document.querySelector(templateSelector).content;
-  const messageElement = cloneElement(templateElement);
+  cloneElement(templateElement);
   const message = document.querySelector(messageClass);
   const closeButton = message.querySelector(buttonSelector);
 

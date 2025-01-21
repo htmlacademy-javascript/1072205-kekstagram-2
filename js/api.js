@@ -10,10 +10,9 @@ const Method = {
   POST: 'POST',
 };
 
-const fetchData = (route, method, body = null) => {
-  return fetch(`${BASE_URL}${route}`, { method, body })
+const fetchData = (route, method, body = null) =>
+  fetch(`${BASE_URL}${route}`, { method, body })
     .then((response) => response.json());
-};
 
 const getData = () => fetchData(Route.GET_DATA, Method.GET);
 
