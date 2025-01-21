@@ -44,16 +44,19 @@ const configureFormSubmit = () => {
       const formData = new FormData(evt.target);
       submitButtonElement.setAttribute('disabled', 'true');
 
-      try {
-        await sendData(formData);
-        closeModal();
-        showSendSuccessMessage();
-      } catch (error) {
-        showSendErrorMessage();
-      }
-      submitButtonElement.removeAttribute('disabled');
+      sendData(formData)
+        .then(() => {
+          closeModal();
+          showSendSuccessMessage();
+        })
+        .catch(() => {
+          showSendErrorMessage(false);
+        })
+        .finally(submitButtonElement.removeAttribute('disabled', ''));
     }
   });
 };
 
 export { openPhotoEditModal, closeModal, onEscapeDown, configureFormSubmit };
+
+

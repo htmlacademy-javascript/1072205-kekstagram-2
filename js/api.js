@@ -11,16 +11,7 @@ const Method = {
 };
 
 const fetchData = (route, method, body = null) => {
-  const options = { method };
-  if (body) options.body = body;
-
-  return fetch(`${BASE_URL}${route}`, options)
-    .then((response) => {
-      if (!response.ok) {
-        return Promise.reject(new Error(`${response.status} ${response.statusText}`));
-      }
-      return response.json();
-    });
+  fetch(`${BASE_URL}${route}`, { method, body }).then((response) => response.json());
 };
 
 const getData = () => fetchData(Route.GET_DATA, Method.GET);

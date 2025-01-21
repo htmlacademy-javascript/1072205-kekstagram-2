@@ -4,17 +4,14 @@ import { openPhotoEditModal, configureFormSubmit } from './photo-edit-modal.js';
 import { getData } from './api.js';
 import { showLoadErrorMessage } from './utils.js';
 
-const initializeApp = async () => {
-  try {
-    const photos = await getData();
+getData()
+  .then((photos) => {
     createThumbnails(photos);
     openFullSizePhotoModal(photos);
     openPhotoEditModal();
     configureFormSubmit();
-  } catch (error) {
+  })
+  .catch(() => {
     showLoadErrorMessage();
-  }
-};
-
-initializeApp();
+  });
 
