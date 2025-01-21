@@ -17,6 +17,6 @@ const fetchData = (route, method, body = null) => {
 
 const getData = () => fetchData(Route.GET_DATA, Method.GET);
 
-const sendData = (body) => fetchData(Route.SEND_DATAs, Method.POST, body);
+const sendData = (body) => fetchData(Route.SEND_DATA, Method.POST, body);
 
 export { getData, sendData };
