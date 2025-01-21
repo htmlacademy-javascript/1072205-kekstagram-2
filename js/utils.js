@@ -6,7 +6,9 @@ const getRandomUniqueNumbers = (min, max, count) => {
 
   while (numbers.length < count) {
     const randomNumber = getRandomNumber(min, max);
-    numbers.push(randomNumber);
+    if (!numbers.includes(randomNumber)) {
+      numbers.push(randomNumber);
+    }
   }
 
   return numbers;

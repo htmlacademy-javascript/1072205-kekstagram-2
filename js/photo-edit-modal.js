@@ -1,5 +1,6 @@
 import { validatePhotoEditForm } from './photo-edit-form-validation.js';
 import { editPhotoScale, editPhotoEffect } from './photo-settings.js';
+import { loadUserPhoto } from './add-user-photo.js';
 
 const formElement = document.querySelector('.img-upload__form');
 const photoUploadInputElement = formElement.querySelector('.img-upload__input');
@@ -29,6 +30,7 @@ function closeModal() {
 }
 
 const openPhotoEditModal = () => {
+  loadUserPhoto();
   photoUploadInputElement.addEventListener('change', () => {
     modalElement.classList.remove('hidden');
     document.body.classList.add('modal-open');
