@@ -37,7 +37,7 @@ const openPhotoEditModal = () => {
 };
 
 const configureFormSubmit = () => {
-  formElement.addEventListener('submit', (evt) => {
+  formElement.addEventListener('submit', async (evt) => {
     evt.preventDefault();
 
     if (pristine.validate()) {
@@ -45,13 +45,13 @@ const configureFormSubmit = () => {
       submitButtonElement.setAttribute('disabled', 'true');
 
       try {
-        sendData(formData);
+        await sendData(formData);
         closeModal();
         showSendSuccessMessage();
       } catch (error) {
         showSendErrorMessage();
       }
-      submitButtonElement.setAttribute('disabled', 'false');
+      submitButtonElement.removeAttribute('disabled');
     }
   });
 };

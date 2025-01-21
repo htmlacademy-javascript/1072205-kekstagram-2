@@ -1,4 +1,4 @@
-import { showComments } from './show-сomments.js';
+import { showComments } from './show-comments.js';
 
 const fullSizePhotoElement = document.querySelector('.big-picture__preview');
 const fullSizePhotoImageElement = fullSizePhotoElement.querySelector('img');

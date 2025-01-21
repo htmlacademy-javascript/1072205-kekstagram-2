@@ -55,25 +55,24 @@ const closeUserMessage = (button, message, type) => {
   });
 };
 
+const showMessage = (templateSelector, messageClass, buttonSelector) => {
+  const templateElement = document.querySelector(templateSelector).content;
+  const messageElement = cloneElement(templateElement);
+  document.body.appendChild(messageElement);
+
+  const message = document.querySelector(messageClass);
+  const closeButton = message.querySelector(buttonSelector);
+
+  closeUserMessage(closeButton, message, messageClass);
+};
+
 const showSendSuccessMessage = () => {
-  const successMessageTemplateElement = document.querySelector('#success').content;
-  cloneElement(successMessageTemplateElement);
-
-  const successMessage = document.querySelector('.success');
-  const successMessageCloseButtonElement = successMessage.querySelector('.success__button');
-
-  closeUserMessage(successMessageCloseButtonElement, successMessage, '.success');
+  showMessage('#success', '.success', '.success__button');
 };
 
 const showSendErrorMessage = () => {
-  const errorMessageTemplateElement = document.querySelector('#error').content;
-  cloneElement(errorMessageTemplateElement);
-
-  const errorMessage = document.querySelector('.error');
-  const errorMessageCloseButtonElement = errorMessage.querySelector('.error__button');
-
-  document.removeEventListener('keydown', onEscapeDown);
-  closeUserMessage(errorMessageCloseButtonElement, errorMessage, '.error');
+  document.removeEventListener('keydown', onEscapeDown); // Отключить глобальный обработчик
+  showMessage('#error', '.error', '.error__button');
 };
 
 export { getRandomNumber, getRandomArrayElement, getRandomUniqueNumber, cloneElement, showLoadErrorMessage, showSendSuccessMessage, showSendErrorMessage, onEscapeDown };

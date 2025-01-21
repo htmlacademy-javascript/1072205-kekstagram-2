@@ -10,18 +10,21 @@ const Method = {
   POST: 'POST',
 };
 
-const load = (route, method, body) => {
-  fetch (`${BASE_URL}${route}`, {method, body})
+const fetchData = (route, method, body = null) => {
+  const options = { method };
+  if (body) options.body = body;
+
+  return fetch(`${BASE_URL}${route}`, options)
     .then((response) => {
       if (!response.ok) {
-        throw new Error(`${response.status} ${response.statusText}`);
+        return Promise.reject(new Error(`${response.status} ${response.statusText}`));
       }
       return response.json();
     });
 };
 
-const getData = () => load(Route.GET_DATA, Method.GET);
+const getData = () => fetchData(Route.GET_DATA, Method.GET);
 
-const sendData = (body) => load(Route.SEND_DATA, Method.POST, body);
+const sendData = (body) => fetchData(Route.SEND_DATA, Method.POST, body);
 
 export { getData, sendData };
