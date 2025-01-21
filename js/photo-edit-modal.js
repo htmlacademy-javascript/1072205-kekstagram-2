@@ -50,7 +50,7 @@ const configureFormSubmit = () => {
           showSendSuccessMessage();
         })
         .catch(() => {
-          showSendErrorMessage(false);
+          showSendErrorMessage();
         })
         .finally(submitButtonElement.removeAttribute('disabled', ''));
     }

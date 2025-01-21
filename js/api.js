@@ -11,11 +11,12 @@ const Method = {
 };
 
 const fetchData = (route, method, body = null) => {
-  fetch(`${BASE_URL}${route}`, { method, body }).then((response) => response.json());
+  return fetch(`${BASE_URL}${route}`, { method, body })
+    .then((response) => response.json());
 };
 
 const getData = () => fetchData(Route.GET_DATA, Method.GET);
 
-const sendData = (body) => fetchData(Route.SEND_DATA, Method.POST, body);
+const sendData = (body) => fetchData(Route.SEND_DATAs, Method.POST, body);
 
 export { getData, sendData };

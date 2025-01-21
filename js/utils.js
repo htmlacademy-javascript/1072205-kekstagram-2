@@ -1,4 +1,4 @@
-import { onEscapeDown } from './full-size-photo-modal.js';
+import { onEscapeDown } from './photo-edit-modal.js';
 
 const getRandomNumber = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 const getRandomArrayElement = (array) => array[getRandomNumber(0, array.length - 1)];
@@ -58,8 +58,6 @@ const closeUserMessage = (button, message, type) => {
 const showMessage = (templateSelector, messageClass, buttonSelector) => {
   const templateElement = document.querySelector(templateSelector).content;
   const messageElement = cloneElement(templateElement);
-  document.body.appendChild(messageElement);
-
   const message = document.querySelector(messageClass);
   const closeButton = message.querySelector(buttonSelector);
 
