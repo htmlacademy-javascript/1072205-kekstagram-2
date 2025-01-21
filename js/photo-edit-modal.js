@@ -1,18 +1,13 @@
-import { validatePhotoEditForm } from './photo-edit-form-validation.js';
+import { validatePhotoEditForm, pristine } from './photo-edit-form-validation.js';
 import { editPhotoScale, editPhotoEffect } from './photo-settings.js';
+import { showSendSuccessMessage, showSendErrorMessage } from './utils.js';
+import { sendData } from './api.js';
 
 const formElement = document.querySelector('.img-upload__form');
 const photoUploadInputElement = formElement.querySelector('.img-upload__input');
 const modalElement = formElement.querySelector('.img-upload__overlay');
 const closeElement = formElement.querySelector('.img-upload__cancel');
-const hashtagInputElement = formElement.querySelector('.text__hashtags');
-const descriptionInputElement = formElement.querySelector('.text__description');
-
-const clearForm = () => {
-  photoUploadInputElement.value = '';
-  hashtagInputElement.value = '';
-  descriptionInputElement.value = '';
-};
+const submitButtonElement = formElement.querySelector('.img-upload__submit');
 
 function onEscapeDown(evt) {
   if (evt.key === 'Escape') {
@@ -25,7 +20,7 @@ function closeModal() {
   modalElement.classList.add('hidden');
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onEscapeDown);
-  clearForm();
+  formElement.reset();
 }
 
 const openPhotoEditModal = () => {
@@ -41,4 +36,24 @@ const openPhotoEditModal = () => {
   editPhotoEffect();
 };
 
-export { openPhotoEditModal, closeModal, onEscapeDown };
+const configureFormSubmit = () => {
+  formElement.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    if (pristine.validate()) {
+      const formData = new FormData(evt.target);
+      submitButtonElement.setAttribute('disabled', 'true');
+
+      try {
+        sendData(formData);
+        closeModal();
+        showSendSuccessMessage();
+      } catch (error) {
+        showSendErrorMessage();
+      }
+      submitButtonElement.setAttribute('disabled', 'false');
+    }
+  });
+};
+
+export { openPhotoEditModal, closeModal, onEscapeDown, configureFormSubmit };
