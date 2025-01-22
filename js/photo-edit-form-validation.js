@@ -68,12 +68,6 @@ const validatePhotoEditForm = () => {
 
   hashtagInputElement.addEventListener('keydown', preventEscClose);
   descriptionInputElement.addEventListener('keydown', preventEscClose);
-
-  formElement.addEventListener('submit', (evt) => {
-    if (!pristine.validate()) {
-      evt.preventDefault();
-    }
-  });
 };
 
-export { validatePhotoEditForm };
+export { validatePhotoEditForm, pristine };

@@ -57,6 +57,7 @@ const showComments = (newComments) => {
   }
 };
 
+
 // Функция для очистки списка комментариев
 const clearComments = () => {
   commentsListElement.innerHTML = '';

@@ -1,12 +1,17 @@
-import { createPhotos } from './create-photos.js';
 import { createThumbnails } from './create-thumbnails.js';
 import { openFullSizePhotoModal } from './full-size-photo-modal.js';
-import { openPhotoEditModal } from './photo-edit-modal.js';
+import { openPhotoEditModal, configureFormSubmit } from './photo-edit-modal.js';
+import { getData } from './api.js';
+import { showLoadErrorMessage } from './utils.js';
 
-const photos = createPhotos();
-
-createThumbnails(photos);
-openFullSizePhotoModal(photos);
-openPhotoEditModal();
-
+getData()
+  .then((photos) => {
+    createThumbnails(photos);
+    openFullSizePhotoModal(photos);
+    openPhotoEditModal();
+    configureFormSubmit();
+  })
+  .catch(() => {
+    showLoadErrorMessage();
+  });
 
