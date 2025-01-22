@@ -40,7 +40,7 @@ const showLoadErrorMessage = () => {
 };
 
 // Закрытие пользвательских сообщений
-const closeUserMessage = (button, message, type) => {
+const closeUserMessage = (button, message) => {
   button.addEventListener('click', () => {
     message.remove();
   });
@@ -54,7 +54,7 @@ const closeUserMessage = (button, message, type) => {
   });
 
   document.addEventListener('click', (evt) => {
-    if (!event.target.closest('[class*="inner"]')) {
+    if (!evt.target.closest('[class*="inner"]')) {
       message.remove();
     }
   });
@@ -91,4 +91,4 @@ function debounce (callback, timeoutDelay = 500) {
   };
 }
 
-export { getRandomNumber, getRandomArrayElement, getRandomUniqueNumbers, showLoadErrorMessage, showSendSuccessMessage, showSendErrorMessage, cloneElement, debounce  };
+export { getRandomNumber, getRandomArrayElement, getRandomUniqueNumbers, showLoadErrorMessage, showSendSuccessMessage, showSendErrorMessage, cloneElement, debounce };

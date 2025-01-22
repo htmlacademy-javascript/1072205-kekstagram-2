@@ -1,5 +1,5 @@
-import { getRandomUniqueNumbers, debounce } from "./utils.js";
-import { createThumbnails } from "./create-thumbnails.js";
+import { getRandomUniqueNumbers, debounce } from './utils.js';
+import { createThumbnails } from './create-thumbnails.js';
 
 const filtersElement = document.querySelector('.img-filters');
 const filterButtonsElement = filtersElement.querySelectorAll('.img-filters__button');

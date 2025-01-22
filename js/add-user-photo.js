@@ -14,12 +14,12 @@ const loadUserPhoto = () => {
     if (matches) {
       imgUploadPrewiew.setAttribute('src', URL.createObjectURL(file));
     }
-  })
-}
+  });
+};
 
 const addUserPhoto = () => {
   const thumbnail = document.createDocumentFragment();
-  const userPhoto = templateElement.cloneNode(true);;
+  const userPhoto = templateElement.cloneNode(true);
   const userPhotoElement = userPhoto.querySelector('.picture__img');
   const container = document.querySelector('.pictures');
 
