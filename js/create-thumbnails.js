@@ -1,8 +1,9 @@
 const containerElement = document.querySelector('.pictures');
 const templateElement = document.querySelector('#picture').content;
 
+// Отрисовка миниатюр
 const createThumbnails = (photos) => {
-  const thumbnailsListFragment = document.createDocumentFragment();
+  const thumbnailsFragment = document.createDocumentFragment();
   photos.forEach(({id, url, description, likes, comments}) => {
     const photoElement = templateElement.cloneNode(true);
     const photoImageElement = photoElement.querySelector('.picture__img');
@@ -13,10 +14,10 @@ const createThumbnails = (photos) => {
     photoElement.querySelector('.picture__likes').textContent = likes;
     photoElement.querySelector('.picture__comments').textContent = comments.length;
 
-    thumbnailsListFragment.appendChild(photoElement);
+    thumbnailsFragment.appendChild(photoElement);
   });
 
-  containerElement.appendChild(thumbnailsListFragment);
+  containerElement.appendChild(thumbnailsFragment);
 };
 
 export { createThumbnails };

@@ -5,6 +5,7 @@ const modalElement = document.querySelector('.big-picture');
 const closeElement = modalElement.querySelector('.big-picture__cancel');
 const thumbnailsContainerElement = document.querySelector('.pictures');
 
+// Обработчик события нажатия клавиши Escape
 function onEscapeDown(evt) {
   if (evt.key === 'Escape') {
     evt.preventDefault();
@@ -12,6 +13,7 @@ function onEscapeDown(evt) {
   }
 }
 
+// Закрытие модального окна
 function closeModal() {
   modalElement.classList.add('hidden');
   document.body.classList.remove('modal-open');
@@ -19,6 +21,7 @@ function closeModal() {
   clearComments();
 }
 
+// Открытие модального окна с полноразмерным фото
 const openFullSizePhotoModal = (photos) => {
   thumbnailsContainerElement.addEventListener('click', (evt) => {
     if (evt.target.matches('.picture__img')) {

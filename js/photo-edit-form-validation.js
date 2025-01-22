@@ -2,6 +2,7 @@ const formElement = document.querySelector('.img-upload__form');
 const hashtagInputElement = formElement.querySelector('.text__hashtags');
 const descriptionInputElement = formElement.querySelector('.text__description');
 
+// Получение ошибок для хэштегов
 const getHashtagErrorMessage = (value) => {
   const hashtags = value.trim().toLowerCase().split(/\s+/);
 
@@ -21,6 +22,7 @@ const getHashtagErrorMessage = (value) => {
   return '';
 };
 
+// Создание экземпляра Pristine для формы
 const pristine = new Pristine(formElement, {
   classTo: 'img-upload__field-wrapper',
   errorTextParent: 'img-upload__field-wrapper',
@@ -55,13 +57,14 @@ const validateHashtags = (value) => { // хэштеги необязательн
 // Валидация комментария
 const validateDescription = (value) => value.length <= 140;
 
-// если фокус находится в поле ввода хэштега или комментария, нажатие на Esc не должно приводить к закрытию формы редактирования изображения
+// Отмена закрытия формы при фокусе в поле ввода
 const preventEscClose = (evt) => {
   if (evt.key === 'Escape' && (hashtagInputElement === document.activeElement || descriptionInputElement === document.activeElement)) {
     evt.stopPropagation();
   }
 };
 
+// Валидация формы
 const validatePhotoEditForm = () => {
   pristine.addValidator(hashtagInputElement, validateHashtags, getHashtagErrorMessage);
   pristine.addValidator(descriptionInputElement, validateDescription, 'Комментарий не должен превышать 140 символов');

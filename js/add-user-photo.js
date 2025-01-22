@@ -12,7 +12,6 @@ const loadUserPhoto = () => {
     const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
 
     if (matches) {
-      console.log(imgUploadPrewiew);
       imgUploadPrewiew.setAttribute('src', URL.createObjectURL(file));
     }
   })
@@ -23,7 +22,7 @@ const addUserPhoto = () => {
   const userPhoto = templateElement.cloneNode(true);;
   const userPhotoElement = userPhoto.querySelector('.picture__img');
   const container = document.querySelector('.pictures');
-  
+
   formElement.addEventListener('submit', () => {
     userPhotoElement.setAttribute('src', imgUploadPrewiew.src);
     userPhoto.querySelector('.picture__likes').textContent = 0;

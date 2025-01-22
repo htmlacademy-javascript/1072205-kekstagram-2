@@ -1,38 +1,44 @@
 const image = document.querySelector('.img-upload__preview img');
 
+// Изменение масштаба изображения
 const editPhotoScale = () => {
   const scaleControlSmallerButtonElement = document.querySelector('.scale__control--smaller');
   const scaleControlBiggerButtonElement = document.querySelector('.scale__control--bigger');
   const scaleControlValueElement = document.querySelector('.scale__control--value');
-  const scaleStep = 25;
-  const scaleMin = 25;
-  const scaleMax = 100;
+  const SCALE_STEP = 25;
+  const SCALE_MIN = 25;
+  const SCALE_MAX = 100;
 
+  // Получение текущего значения масштаба
   let scaleValue = parseFloat(scaleControlValueElement.value.replace('%', ''));
 
+  // Обработчик события нажатия на кнопку уменьшения масштаба
   scaleControlSmallerButtonElement.addEventListener('click', () => {
-    if (scaleValue > scaleMin) {
-      scaleValue -= scaleStep;
+    if (scaleValue > SCALE_MIN) {
+      scaleValue -= SCALE_STEP;
     }
     scaleControlValueElement.setAttribute('value', `${scaleValue}%`);
     image.style.setProperty('transform', `scale(0.${scaleValue})`);
   });
 
+  // Обработчик события нажатия на кнопку увеличения масштаба
   scaleControlBiggerButtonElement.addEventListener('click', () => {
-    if (scaleValue < scaleMax) {
-      scaleValue += scaleStep;
+    if (scaleValue < SCALE_MAX) {
+      scaleValue += SCALE_STEP;
     }
     scaleControlValueElement.setAttribute('value', `${scaleValue}%`);
-    image.setAttribute('style', scaleValue === scaleMax ? 'transform: scale(1.00)' : `transform: scale(0.${scaleValue})`);
+    image.setAttribute('style', scaleValue === SCALE_MAX ? 'transform: scale(1.00)' : `transform: scale(0.${scaleValue})`);
   });
 };
 
+// Редактирование эффектов изображения
 const editPhotoEffect = () => {
   const effectLevelContainerElement = document.querySelector('.img-upload__effect-level');
   const effectsListElement = document.querySelectorAll('.effects__radio');
   const effectLevelElement = document.querySelector('.effect-level__value');
   const sliderElement = document.querySelector('.effect-level__slider');
 
+  // Инициализация слайдера
   noUiSlider.create(sliderElement, {
     start: [100],
     range: {
@@ -43,6 +49,7 @@ const editPhotoEffect = () => {
     connect: 'lower'
   });
 
+  // Применение эффекта к изображению
   const applyEffect = (effectName, value) => {
     if (effectName === 'chrome') {
       image.setAttribute('style', `filter: grayscale(${value / 100})`); // Для эффекта «Хром»
@@ -89,6 +96,7 @@ const editPhotoEffect = () => {
     });
   }
 
+  // Обработчик изменения положения ползунка на слайдере
   sliderElement.noUiSlider.on('update', (values, handle) => {
     const effectValue = values[handle];
     effectLevelElement.setAttribute('value', Math.round(effectValue));
