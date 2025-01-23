@@ -1,6 +1,7 @@
 const containerElement = document.querySelector('.pictures');
 const templateElement = document.querySelector('#picture').content;
 
+// Отрисовка миниатюр
 const createThumbnails = (photos) => {
   const thumbnailsFragment = document.createDocumentFragment();
   photos.forEach(({id, url, description, likes, comments}) => {

@@ -2,6 +2,7 @@ import { validatePhotoEditForm, pristine } from './photo-edit-form-validation.js
 import { editPhotoScale, editPhotoEffect } from './photo-settings.js';
 import { showSendSuccessMessage, showSendErrorMessage } from './utils.js';
 import { sendData } from './api.js';
+import { loadUserPhoto } from './add-user-photo.js';
 
 const formElement = document.querySelector('.img-upload__form');
 const photoUploadInputElement = formElement.querySelector('.img-upload__input');
@@ -9,6 +10,7 @@ const modalElement = formElement.querySelector('.img-upload__overlay');
 const closeElement = formElement.querySelector('.img-upload__cancel');
 const submitButtonElement = formElement.querySelector('.img-upload__submit');
 
+// Обработчик события нажатия клавиши Escape
 function onEscapeDown(evt) {
   if (evt.key === 'Escape') {
     evt.preventDefault();
@@ -16,6 +18,7 @@ function onEscapeDown(evt) {
   }
 }
 
+// Закрытие модального окна
 function closeModal() {
   modalElement.classList.add('hidden');
   document.body.classList.remove('modal-open');
@@ -23,7 +26,9 @@ function closeModal() {
   formElement.reset();
 }
 
+// Открытие модального окна редактирования фотографии
 const openPhotoEditModal = () => {
+  loadUserPhoto();
   photoUploadInputElement.addEventListener('change', () => {
     modalElement.classList.remove('hidden');
     document.body.classList.add('modal-open');
@@ -36,6 +41,7 @@ const openPhotoEditModal = () => {
   editPhotoEffect();
 };
 
+// Настройка отправки формы
 const configureFormSubmit = () => {
   formElement.addEventListener('submit', async (evt) => {
     evt.preventDefault();
@@ -52,7 +58,9 @@ const configureFormSubmit = () => {
         .catch(() => {
           showSendErrorMessage();
         })
-        .finally(submitButtonElement.removeAttribute('disabled', ''));
+        .finally(() => {
+          submitButtonElement.removeAttribute('disabled');
+        });
     }
   });
 };

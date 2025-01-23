@@ -8,6 +8,7 @@ const commentsQuantityElement = fullSizePhotoElement.querySelector('.social__com
 const commentLoaderElement = fullSizePhotoElement.querySelector('.social__comments-loader');
 const commentsListElement = fullSizePhotoElement.querySelector('.social__comments');
 
+// Создание полноразмерного фото
 const createFullSizePhoto = ({url, description, likes, comments}) => {
   fullSizePhotoImageElement.setAttribute('src', url);
   likesCountElement.textContent = likes;

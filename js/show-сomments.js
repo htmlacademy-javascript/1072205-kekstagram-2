@@ -4,12 +4,12 @@ const commentLoaderElement = fullSizePhotoElement.querySelector('.social__commen
 const commentItemElement = commentsListElement.querySelector('.social__comment');
 const commentsShownElement = fullSizePhotoElement.querySelector('.social__comment-shown-count');
 
-const startQuantityComments = 5;
-const loadQuantity = 5;
+const START_QUANTITY_COMMENTS = 5;
+const LOAD_QUANTITY = 5;
 let showedComments = 0;
 let comments = [];
 
-// Функция для рендеринга одного комментария
+// Создание одного комментария
 const renderComment = ({ avatar, name, message }) => {
   const newCommentElement = commentItemElement.cloneNode(true);
   const commentAuthorElement = newCommentElement.querySelector('.social__picture');
@@ -22,10 +22,10 @@ const renderComment = ({ avatar, name, message }) => {
   return newCommentElement;
 };
 
-// Функция для загрузки дополнительных комментариев
+// Загрузка дополнительный комментариев
 const uploadComments = () => {
   const remainingComments = comments.length - showedComments;
-  const commentsToLoad = Math.min(loadQuantity, remainingComments);
+  const commentsToLoad = Math.min(LOAD_QUANTITY, remainingComments);
 
   for (let i = showedComments; i < showedComments + commentsToLoad; i++) {
     commentsListElement.appendChild(renderComment(comments[i]));
@@ -39,10 +39,10 @@ const uploadComments = () => {
   }
 };
 
-// Функция для отображения начальных комментариев
+// Отображение начальных комментариев
 const showComments = (newComments) => {
   comments = newComments;
-  showedComments = Math.min(startQuantityComments, comments.length);
+  showedComments = Math.min(START_QUANTITY_COMMENTS, comments.length);
 
   for (let i = 0; i < showedComments; i++) {
     commentsListElement.appendChild(renderComment(comments[i]));
@@ -58,7 +58,7 @@ const showComments = (newComments) => {
 };
 
 
-// Функция для очистки списка комментариев
+// Очистка списка комментариев
 const clearComments = () => {
   commentsListElement.innerHTML = '';
   commentLoaderElement.removeEventListener('click', uploadComments);
