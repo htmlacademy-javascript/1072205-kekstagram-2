@@ -1,3 +1,5 @@
+import { updateFilter, updateScale } from './add-user-photo.js';
+
 const image = document.querySelector('.img-upload__preview img');
 
 // Изменение масштаба изображения
@@ -5,17 +7,28 @@ const editPhotoScale = () => {
   const scaleControlSmallerButtonElement = document.querySelector('.scale__control--smaller');
   const scaleControlBiggerButtonElement = document.querySelector('.scale__control--bigger');
   const scaleControlValueElement = document.querySelector('.scale__control--value');
-  const SCALE_STEP = 25;
-  const SCALE_MIN = 25;
-  const SCALE_MAX = 100;
+
+  const ScaleOptions = {
+    SCALE_STEP: 25,
+    SCALE_MIN: 25,
+    SCALE_MAX: 100,
+  };
 
   // Получение текущего значения масштаба
   let scaleValue = parseFloat(scaleControlValueElement.value.replace('%', ''));
 
+  // Функция обновления масштаба
+  const updateScaleValue = () => {
+    scaleControlValueElement.setAttribute('value', `${scaleValue}%`);
+    image.style.setProperty('transform', `scale(${scaleValue / 100})`);
+    updateScale(scaleValue); // Обновляем глобальное значение масштаба
+  };
+
   // Обработчик события нажатия на кнопку уменьшения масштаба
   scaleControlSmallerButtonElement.addEventListener('click', () => {
-    if (scaleValue > SCALE_MIN) {
-      scaleValue -= SCALE_STEP;
+    if (scaleValue > ScaleOptions.SCALE_MIN) {
+      scaleValue -= ScaleOptions.SCALE_STEP;
+      updateScaleValue();
     }
     scaleControlValueElement.setAttribute('value', `${scaleValue}%`);
     image.style.setProperty('transform', `scale(0.${scaleValue})`);
@@ -23,11 +36,12 @@ const editPhotoScale = () => {
 
   // Обработчик события нажатия на кнопку увеличения масштаба
   scaleControlBiggerButtonElement.addEventListener('click', () => {
-    if (scaleValue < SCALE_MAX) {
-      scaleValue += SCALE_STEP;
+    if (scaleValue < ScaleOptions.SCALE_MAX) {
+      scaleValue += ScaleOptions.SCALE_STEP;
+      updateScaleValue();
     }
     scaleControlValueElement.setAttribute('value', `${scaleValue}%`);
-    image.setAttribute('style', scaleValue === SCALE_MAX ? 'transform: scale(1.00)' : `transform: scale(0.${scaleValue})`);
+    image.setAttribute('style', scaleValue === ScaleOptions.SCALE_MAX ? 'transform: scale(1.00)' : `transform: scale(0.${scaleValue})`);
   });
 };
 
@@ -51,24 +65,30 @@ const editPhotoEffect = () => {
 
   // Применение эффекта к изображению
   const applyEffect = (effectName, value) => {
+    let filterValue = '';
+
     if (effectName === 'chrome') {
-      image.setAttribute('style', `filter: grayscale(${value / 100})`); // Для эффекта «Хром»
+      filterValue = `grayscale(${value / 100})`; // Для эффекта «Хром»
     }
     if (effectName === 'sepia') {
-      image.setAttribute('style', `filter: sepia(${value / 100})`); // Для эффекта «Сепия»
+      filterValue = `sepia(${value / 100})`; // Для эффекта «Сепия»
     }
     if (effectName === 'marvin') {
-      image.setAttribute('style', `filter: invert(${value}%)`); // Для эффекта «Марвин»
+      filterValue = `invert(${value}%)`; // Для эффекта «Марвин»
     }
     if (effectName === 'phobos') {
-      image.setAttribute('style', `filter: blur(${(value * 3) / 100}px)`); // Для эффекта «Фобос»
+      filterValue = `blur(${(value * 3) / 100}px)`; // Для эффекта «Фобос»
     }
     if (effectName === 'heat') {
-      image.setAttribute('style', `filter: brightness(${1 + (value * 2) / 100})`); // Для эффекта «Зной»
+      filterValue = `brightness(${1 + (value * 2) / 100})`; // Для эффекта «Зной»
     }
     if (effectName === 'none') {
-      image.setAttribute('style', ''); // Для эффекта «Оригинал»
+      filterValue = ''; // Для эффекта «Оригинал»
     }
+
+    image.setAttribute('style', `filter: ${filterValue}`);
+    image.style.filter = effectName;
+    updateFilter(filterValue);
   };
 
   for (const effect of effectsListElement) {
@@ -83,14 +103,15 @@ const editPhotoEffect = () => {
         }
       });
 
-      image.classList.add(`effects__preview--${effect.id.substring(7)}`);
+      const effectName = effect.id.substring(7); // Получаем название эффекта
+      image.classList.add(`effects__preview--${effectName}`);
       sliderElement.noUiSlider.set(100);
       effectLevelElement.setAttribute('value', 100);
 
       effectLevelContainerElement.classList.remove('hidden');
-      applyEffect(effect.getAttribute('id').substring(7), 100);
+      applyEffect(effectName, 100);
 
-      if (effect.getAttribute('id') === 'effect-none') {
+      if (effectName === 'none') {
         effectLevelContainerElement.classList.add('hidden');
       }
     });

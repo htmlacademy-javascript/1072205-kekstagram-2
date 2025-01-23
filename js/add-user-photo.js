@@ -2,8 +2,23 @@ const formElement = document.querySelector('.img-upload__form');
 const photoUploadInputElement = formElement.querySelector('.img-upload__input');
 const imgUploadPrewiew = formElement.querySelector('.img-upload__preview img');
 const templateElement = document.querySelector('#picture').content;
+const container = document.querySelector('.pictures');
 
 const FILE_TYPES = ['jpg', 'jpeg', 'png'];
+let currentFilter = ''; // Хранение текущего фильтра
+let currentScale = 100; // Хранение текущего масштаба
+
+// Обновление текущего фильтра при изменении
+const updateFilter = (filter) => {
+  currentFilter = filter;
+  imgUploadPrewiew.style.filter = currentFilter;
+};
+
+// Обновление текущего масштаба
+const updateScale = (scale) => {
+  currentScale = scale;
+  imgUploadPrewiew.style.transform = `scale(${currentScale / 100})`;
+};
 
 const loadUserPhoto = () => {
   photoUploadInputElement.addEventListener('change', () => {
@@ -18,18 +33,23 @@ const loadUserPhoto = () => {
 };
 
 const addUserPhoto = () => {
-  const thumbnail = document.createDocumentFragment();
-  const userPhoto = templateElement.cloneNode(true);
-  const userPhotoElement = userPhoto.querySelector('.picture__img');
-  const container = document.querySelector('.pictures');
+  formElement.addEventListener('submit', (evt) => {
+    evt.preventDefault();
 
-  formElement.addEventListener('submit', () => {
+    const thumbnail = document.createDocumentFragment();
+    const userPhoto = templateElement.cloneNode(true);
+    const userPhotoElement = userPhoto.querySelector('.picture__img');
+
     userPhotoElement.setAttribute('src', imgUploadPrewiew.src);
+    userPhotoElement.style.filter = currentFilter || ''; // Применение текущего фильтра
+    userPhotoElement.style.transform = `scale(${currentScale / 100})`; // Применение масштаба
+
     userPhoto.querySelector('.picture__likes').textContent = 0;
     userPhoto.querySelector('.picture__comments').textContent = 0;
+
     thumbnail.appendChild(userPhoto);
     container.appendChild(thumbnail);
   });
 };
 
-export { loadUserPhoto, addUserPhoto };
+export { loadUserPhoto, addUserPhoto, updateFilter, updateScale };
