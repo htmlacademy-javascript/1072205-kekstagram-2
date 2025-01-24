@@ -29,6 +29,11 @@ const loadUserPhoto = () => {
     if (matches) {
       imgUploadPrewiew.setAttribute('src', URL.createObjectURL(file));
     }
+
+    const effectsPreview = formElement.querySelectorAll('.effects__preview');
+    for (const effect of effectsPreview) {
+      effect.setAttribute('style', `background-image: url("${imgUploadPrewiew.src}");`);
+    }
   });
 };
 

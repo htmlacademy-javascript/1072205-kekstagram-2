@@ -1,5 +1,5 @@
 import { validatePhotoEditForm, pristine } from './photo-edit-form-validation.js';
-import { editPhotoScale, editPhotoEffect } from './photo-settings.js';
+import { editPhotoScale, editPhotoEffect, resetPhotoSettings } from './photo-settings.js';
 import { showSendSuccessMessage, showSendErrorMessage } from './utils.js';
 import { sendData } from './api.js';
 import { loadUserPhoto } from './add-user-photo.js';
@@ -24,15 +24,18 @@ function closeModal() {
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onEscapeDown);
   formElement.reset();
+  resetPhotoSettings('');
 }
 
 // Открытие модального окна редактирования фотографии
 const openPhotoEditModal = () => {
   loadUserPhoto();
+
   photoUploadInputElement.addEventListener('change', () => {
     modalElement.classList.remove('hidden');
     document.body.classList.add('modal-open');
   });
+
 
   document.addEventListener('keydown', onEscapeDown);
   closeElement.addEventListener('click', closeModal);
@@ -66,5 +69,3 @@ const configureFormSubmit = () => {
 };
 
 export { openPhotoEditModal, closeModal, onEscapeDown, configureFormSubmit };
-
-

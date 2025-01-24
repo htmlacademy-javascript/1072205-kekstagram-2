@@ -1,12 +1,24 @@
 import { updateFilter, updateScale } from './add-user-photo.js';
 
 const image = document.querySelector('.img-upload__preview img');
+const slider = document.querySelector('.effect-level');
+const scaleControlValueElement = document.querySelector('.scale__control--value');
+
+let scaleValue = parseFloat(scaleControlValueElement.value.replace('%', ''));
+
+// Сброс настроек пользователького фото
+const resetPhotoSettings = (currentFilter) => {
+  scaleControlValueElement.setAttribute('value', '100%');
+  image.setAttribute('style', `filter: ${currentFilter}(100%); transform: scale(1);`);
+  image.setAttribute('class', 'effects__preview--none');
+  scaleValue = 100;
+  slider.classList.add('hidden');
+};
 
 // Изменение масштаба изображения
 const editPhotoScale = () => {
   const scaleControlSmallerButtonElement = document.querySelector('.scale__control--smaller');
   const scaleControlBiggerButtonElement = document.querySelector('.scale__control--bigger');
-  const scaleControlValueElement = document.querySelector('.scale__control--value');
 
   const ScaleOptions = {
     SCALE_STEP: 25,
@@ -14,14 +26,11 @@ const editPhotoScale = () => {
     SCALE_MAX: 100,
   };
 
-  // Получение текущего значения масштаба
-  let scaleValue = parseFloat(scaleControlValueElement.value.replace('%', ''));
-
   // Функция обновления масштаба
   const updateScaleValue = () => {
     scaleControlValueElement.setAttribute('value', `${scaleValue}%`);
     image.style.setProperty('transform', `scale(${scaleValue / 100})`);
-    updateScale(scaleValue); // Обновляем глобальное значение масштаба
+    updateScale(scaleValue);
   };
 
   // Обработчик события нажатия на кнопку уменьшения масштаба
@@ -30,8 +39,6 @@ const editPhotoScale = () => {
       scaleValue -= ScaleOptions.SCALE_STEP;
       updateScaleValue();
     }
-    scaleControlValueElement.setAttribute('value', `${scaleValue}%`);
-    image.style.setProperty('transform', `scale(0.${scaleValue})`);
   });
 
   // Обработчик события нажатия на кнопку увеличения масштаба
@@ -40,8 +47,6 @@ const editPhotoScale = () => {
       scaleValue += ScaleOptions.SCALE_STEP;
       updateScaleValue();
     }
-    scaleControlValueElement.setAttribute('value', `${scaleValue}%`);
-    image.setAttribute('style', scaleValue === ScaleOptions.SCALE_MAX ? 'transform: scale(1.00)' : `transform: scale(0.${scaleValue})`);
   });
 };
 
@@ -65,29 +70,17 @@ const editPhotoEffect = () => {
 
   // Применение эффекта к изображению
   const applyEffect = (effectName, value) => {
-    let filterValue = '';
+    const effects = {
+      chrome: `grayscale(${value / 100})`,
+      sepia: `sepia(${value / 100})`,
+      marvin: `invert(${value}%)`,
+      phobos: `blur(${(value * 3) / 100}px)`,
+      heat: `brightness(${1 + (value * 2) / 100})`,
+      none: '',
+    };
 
-    if (effectName === 'chrome') {
-      filterValue = `grayscale(${value / 100})`; // Для эффекта «Хром»
-    }
-    if (effectName === 'sepia') {
-      filterValue = `sepia(${value / 100})`; // Для эффекта «Сепия»
-    }
-    if (effectName === 'marvin') {
-      filterValue = `invert(${value}%)`; // Для эффекта «Марвин»
-    }
-    if (effectName === 'phobos') {
-      filterValue = `blur(${(value * 3) / 100}px)`; // Для эффекта «Фобос»
-    }
-    if (effectName === 'heat') {
-      filterValue = `brightness(${1 + (value * 2) / 100})`; // Для эффекта «Зной»
-    }
-    if (effectName === 'none') {
-      filterValue = ''; // Для эффекта «Оригинал»
-    }
-
-    image.setAttribute('style', `filter: ${filterValue}`);
-    image.style.filter = effectName;
+    const filterValue = effects[effectName];
+    image.style.filter = filterValue;
     updateFilter(filterValue);
   };
 
@@ -95,7 +88,7 @@ const editPhotoEffect = () => {
     effectLevelContainerElement.classList.add('hidden');
 
     effect.addEventListener('change', () => {
-      effect.setAttribute('checked', '');
+      resetPhotoSettings(effect);
 
       image.classList.forEach((className) => {
         if (className.startsWith('effects__preview--')) {
@@ -126,4 +119,4 @@ const editPhotoEffect = () => {
   });
 };
 
-export { editPhotoScale, editPhotoEffect };
+export { editPhotoScale, editPhotoEffect, resetPhotoSettings };
