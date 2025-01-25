@@ -25,6 +25,7 @@ function closeModal() {
   document.removeEventListener('keydown', onEscapeDown);
   formElement.reset();
   resetPhotoSettings('');
+  pristine.reset();
 }
 
 // Открытие модального окна редактирования фотографии
