@@ -17,7 +17,7 @@ const updateFilter = (filter) => {
 // Обновление текущего масштаба
 const updateScale = (scale) => {
   currentScale = scale;
-  imgUploadPrewiew.style.transform = `scale(${currentScale / 100})`;
+  imgUploadPrewiew.style.setProperty('transform', `scale(${currentScale / 100})`);
 };
 
 const loadUserPhoto = () => {
@@ -46,7 +46,7 @@ const addUserPhoto = () => {
     const userPhotoElement = userPhoto.querySelector('.picture__img');
 
     userPhotoElement.setAttribute('src', imgUploadPrewiew.src);
-    userPhotoElement.style.filter = currentFilter || ''; // Применение текущего фильтра
+    userPhotoElement.style.setProperty('filter', currentFilter || ''); // Применение текущего фильтра
     userPhotoElement.style.transform = `scale(${currentScale / 100})`; // Применение масштаба
 
     userPhoto.querySelector('.picture__likes').textContent = 0;

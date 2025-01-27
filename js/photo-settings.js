@@ -19,8 +19,6 @@ const resetPhotoSettings = (currentFilter) => {
 const editPhotoScale = () => {
   const scaleControlSmallerButtonElement = document.querySelector('.scale__control--smaller');
   const scaleControlBiggerButtonElement = document.querySelector('.scale__control--bigger');
-  const scaleControlValueElement = document.querySelector('.scale__control--value'); // Элемент с текущим значением масштаба
-  const image = document.querySelector('.img-upload__preview img'); // Изображение для изменения масштаба
 
   const ScaleOptions = {
     SCALE_STEP: 25,
@@ -29,13 +27,14 @@ const editPhotoScale = () => {
   };
 
   // Инициализация значения масштаба
-  let scaleValue = ScaleOptions.SCALE_MAX; // Начальное значение (100%)
+  scaleValue = ScaleOptions.SCALE_MAX; // Начальное значение (100%)
   scaleControlValueElement.value = `${scaleValue}%`; // Устанавливаем начальное значение в элемент масштаба
 
   // Функция обновления масштаба
   const updateScaleValue = () => {
     scaleControlValueElement.value = `${scaleValue}%`; // Устанавливаем значение в input
     image.style.setProperty('transform', `scale(${scaleValue / 100})`); // Меняем трансформацию изображения
+    updateScale();
   };
 
   // Обработчик события нажатия на кнопку уменьшения масштаба

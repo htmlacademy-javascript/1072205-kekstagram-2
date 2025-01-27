@@ -1,5 +1,5 @@
 import { validatePhotoEditForm, pristine } from './photo-edit-form-validation.js';
-import { editPhotoScale, editPhotoEffect, resetPhotoSettings } from './photo-settings.js';
+import { resetPhotoSettings, editPhotoEffect, editPhotoScale } from './photo-settings.js';
 import { showSendSuccessMessage, showSendErrorMessage } from './utils.js';
 import { sendData } from './api.js';
 import { loadUserPhoto } from './add-user-photo.js';
