@@ -6,14 +6,15 @@ import { openFullSizePhotoModal } from './full-size-photo-modal.js';
 import { configureFormSubmit, openPhotoEditModal } from './photo-edit-modal.js';
 import { showLoadErrorMessage } from './utils.js';
 
+openPhotoEditModal();
+configureFormSubmit();
+addUserPhoto();
+
 getData()
   .then((photos) => {
     createThumbnails(photos);
     openFullSizePhotoModal(photos);
-    openPhotoEditModal();
-    configureFormSubmit();
     showFilters(photos);
-    addUserPhoto();
   })
   .catch(() => {
     showLoadErrorMessage();
