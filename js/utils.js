@@ -3,9 +3,6 @@ import { onEscapeDown } from './photo-edit-modal.js';
 // Генерация случайного целого числа в заданном диапазоне
 const getRandomNumber = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
-// Выбор случайного элемента из массива
-const getRandomArrayElement = (array) => array[getRandomNumber(0, array.length - 1)];
-
 // Генерации уникальных случайных чисел в заданном диапазоне и количестве
 const getRandomUniqueNumbers = (min, max, count) => {
   const numbers = [];
@@ -91,4 +88,4 @@ function debounce (callback, timeoutDelay = 500) {
   };
 }
 
-export { getRandomNumber, getRandomArrayElement, getRandomUniqueNumbers, showLoadErrorMessage, showSendSuccessMessage, showSendErrorMessage, cloneElement, debounce };
+export { getRandomNumber, getRandomUniqueNumbers, showLoadErrorMessage, showSendSuccessMessage, showSendErrorMessage, cloneElement, debounce };

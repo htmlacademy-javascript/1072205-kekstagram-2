@@ -9,12 +9,12 @@ const thumbnailsContainerElement = document.querySelector('.pictures');
 function onEscapeDown(evt) {
   if (evt.key === 'Escape') {
     evt.preventDefault();
-    closeModal();
+    onModalClose();
   }
 }
 
 // Закрытие модального окна
-function closeModal() {
+function onModalClose() {
   modalElement.classList.add('hidden');
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onEscapeDown);
@@ -34,7 +34,7 @@ const openFullSizePhotoModal = (photos) => {
     }
 
     document.addEventListener('keydown', onEscapeDown);
-    closeElement.addEventListener('click', closeModal);
+    closeElement.addEventListener('click', onModalClose);
   });
 };
 

@@ -1,10 +1,11 @@
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
+
 const formElement = document.querySelector('.img-upload__form');
 const photoUploadInputElement = formElement.querySelector('.img-upload__input');
 const imgUploadPrewiew = formElement.querySelector('.img-upload__preview img');
 const templateElement = document.querySelector('#picture').content;
 const container = document.querySelector('.pictures');
 
-const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 let currentFilter = ''; // Хранение текущего фильтра
 let currentScale = 100; // Хранение текущего масштаба
 
