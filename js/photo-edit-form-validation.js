@@ -37,14 +37,14 @@ const validateHashtags = (value) => { // хэштеги необязательн
 
   const hashtags = value.trim().toLowerCase().split(/\s+/); // регистр не учитывается, разделяется пробелами
   const uniqueHashtags = [];
-  const hashtagPattern = /^#[a-zа-яё0-9]{1,19}$/; // начинается с #, строка состоит из букв и чисел, не может состоять только из решетки, длина 20 символов
+  const HASHTAG_PATTERN = /^#[a-zа-яё0-9]{1,19}$/; // начинается с #, строка состоит из букв и чисел, не может состоять только из решетки, длина 20 символов
 
   if (hashtags.length > 5) {
     return false;
   }
 
   for (const hashtag of hashtags) {
-    if ((hashtag === '#') || (!hashtagPattern.test(hashtag)) || (uniqueHashtags.includes(hashtag))) {
+    if ((hashtag === '#') || (!HASHTAG_PATTERN.test(hashtag)) || (uniqueHashtags.includes(hashtag))) {
       return false;
     }
 
@@ -58,7 +58,7 @@ const validateHashtags = (value) => { // хэштеги необязательн
 const validateDescription = (value) => value.length <= 140;
 
 // Отмена закрытия формы при фокусе в поле ввода
-const preventEscClose = (evt) => {
+const onEscPreventClose = (evt) => {
   if (evt.key === 'Escape' && (hashtagInputElement === document.activeElement || descriptionInputElement === document.activeElement)) {
     evt.stopPropagation();
   }
@@ -69,8 +69,8 @@ const validatePhotoEditForm = () => {
   pristine.addValidator(hashtagInputElement, validateHashtags, getHashtagErrorMessage);
   pristine.addValidator(descriptionInputElement, validateDescription, 'Комментарий не должен превышать 140 символов');
 
-  hashtagInputElement.addEventListener('keydown', preventEscClose);
-  descriptionInputElement.addEventListener('keydown', preventEscClose);
+  hashtagInputElement.addEventListener('keydown', onEscPreventClose);
+  descriptionInputElement.addEventListener('keydown', onEscPreventClose);
 };
 
 export { validatePhotoEditForm, pristine };

@@ -1,11 +1,12 @@
+const START_QUANTITY_COMMENTS = 5;
+const LOAD_QUANTITY = 5;
+
 const fullSizePhotoElement = document.querySelector('.big-picture__preview');
 const commentsListElement = fullSizePhotoElement.querySelector('.social__comments');
 const commentLoaderElement = fullSizePhotoElement.querySelector('.social__comments-loader');
 const commentItemElement = commentsListElement.querySelector('.social__comment');
 const commentsShownElement = fullSizePhotoElement.querySelector('.social__comment-shown-count');
 
-const START_QUANTITY_COMMENTS = 5;
-const LOAD_QUANTITY = 5;
 let showedComments = 0;
 let comments = [];
 
@@ -23,7 +24,7 @@ const renderComment = ({ avatar, name, message }) => {
 };
 
 // Загрузка дополнительный комментариев
-const uploadComments = () => {
+const onCommentsUpload = () => {
   const remainingComments = comments.length - showedComments;
   const commentsToLoad = Math.min(LOAD_QUANTITY, remainingComments);
 
@@ -53,7 +54,7 @@ const showComments = (newComments) => {
 
   if (showedComments < comments.length) {
     commentLoaderElement.classList.remove('hidden');
-    commentLoaderElement.addEventListener('click', uploadComments);
+    commentLoaderElement.addEventListener('click', onCommentsUpload);
   }
 };
 
@@ -61,7 +62,7 @@ const showComments = (newComments) => {
 // Очистка списка комментариев
 const clearComments = () => {
   commentsListElement.innerHTML = '';
-  commentLoaderElement.removeEventListener('click', uploadComments);
+  commentLoaderElement.removeEventListener('click', onCommentsUpload);
 };
 
 export { showComments, clearComments };

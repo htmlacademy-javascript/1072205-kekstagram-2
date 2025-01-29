@@ -146,7 +146,6 @@ const editPhotoEffect = () => {
     effectLevelContainerElement.classList.add('hidden');
 
     effect.addEventListener('change', () => {
-      resetPhotoSettings(effect);
 
       image.classList.forEach((className) => {
         if (className.startsWith('effects__preview--')) {

@@ -14,12 +14,12 @@ const submitButtonElement = formElement.querySelector('.img-upload__submit');
 function onEscapeDown(evt) {
   if (evt.key === 'Escape') {
     evt.preventDefault();
-    closeModal();
+    onModalClose();
   }
 }
 
 // Закрытие модального окна
-function closeModal() {
+function onModalClose() {
   modalElement.classList.add('hidden');
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onEscapeDown);
@@ -39,7 +39,7 @@ const openPhotoEditModal = () => {
 
 
   document.addEventListener('keydown', onEscapeDown);
-  closeElement.addEventListener('click', closeModal);
+  closeElement.addEventListener('click', onModalClose);
   validatePhotoEditForm();
   editPhotoScale();
   editPhotoEffect();
@@ -56,7 +56,7 @@ const configureFormSubmit = () => {
 
       sendData(formData)
         .then(() => {
-          closeModal();
+          onModalClose();
           showSendSuccessMessage();
         })
         .catch(() => {
@@ -69,4 +69,4 @@ const configureFormSubmit = () => {
   });
 };
 
-export { openPhotoEditModal, closeModal, onEscapeDown, configureFormSubmit };
+export { openPhotoEditModal, onModalClose, onEscapeDown, configureFormSubmit };

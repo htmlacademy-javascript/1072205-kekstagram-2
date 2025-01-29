@@ -1,12 +1,6 @@
 import { getRandomUniqueNumbers, debounce } from './utils.js';
 import { createThumbnails } from './create-thumbnails.js';
 
-const filtersElement = document.querySelector('.img-filters');
-const filterButtonsElement = filtersElement.querySelectorAll('.img-filters__button');
-const filterDefaultButton = filtersElement.querySelector('#filter-default');
-const filterRandomElement = filtersElement.querySelector('#filter-random');
-const filterDiscussedElement = filtersElement.querySelector('#filter-discussed');
-
 const RANDOM_PHOTOS_COUNT = 10;
 const DEBOUCE_TIME = 500;
 
@@ -16,6 +10,12 @@ const FilterTypes = {
   RANDOM: 'random',
   DISCUSSED: 'discussed',
 };
+
+const filtersElement = document.querySelector('.img-filters');
+const filterButtonsElement = filtersElement.querySelectorAll('.img-filters__button');
+const filterDefaultButton = filtersElement.querySelector('#filter-default');
+const filterRandomElement = filtersElement.querySelector('#filter-random');
+const filterDiscussedElement = filtersElement.querySelector('#filter-discussed');
 
 // Очистка списка миниатюр
 const clearThumbnails = () => {
