@@ -24,7 +24,7 @@ const renderComment = ({ avatar, name, message }) => {
 };
 
 // Загрузка дополнительный комментариев
-const onCommentsUpload = () => {
+const onCommentsUploadClick = () => {
   const remainingComments = comments.length - showedComments;
   const commentsToLoad = Math.min(LOAD_QUANTITY, remainingComments);
 
@@ -54,7 +54,7 @@ const showComments = (newComments) => {
 
   if (showedComments < comments.length) {
     commentLoaderElement.classList.remove('hidden');
-    commentLoaderElement.addEventListener('click', onCommentsUpload);
+    commentLoaderElement.addEventListener('click', onCommentsUploadClick);
   }
 };
 
@@ -62,7 +62,7 @@ const showComments = (newComments) => {
 // Очистка списка комментариев
 const clearComments = () => {
   commentsListElement.innerHTML = '';
-  commentLoaderElement.removeEventListener('click', onCommentsUpload);
+  commentLoaderElement.removeEventListener('click', onCommentsUploadClick);
 };
 
 export { showComments, clearComments };
